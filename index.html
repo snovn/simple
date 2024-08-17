@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>snow - click anywhere</title>
+    <style>
+        body {
+            background-color: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            cursor: pointer; /* Change cursor to indicate interaction is possible */
+        }
+        img {
+            width: 300px; /* Adjust size as needed */
+            height: auto;
+            filter: grayscale(100%); /* Apply black and white filter */
+        }
+        audio {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <img src="pic.gif" alt="Centered GIF">
+
+    <audio id="audio" loop></audio>
+
+    <script>
+        const audios = ["1.mp3", "2.mp3", "3.mp3"];
+        const randomAudio = audios[Math.floor(Math.random() * audios.length)];
+        const audioElement = document.getElementById('audio');
+        audioElement.src = randomAudio;
+        audioElement.load();
+        audioElement.volume = 0.5;
+
+        document.body.addEventListener('click', () => {
+            audioElement.play().catch(error => {
+                console.log('Autoplay blocked:', error);
+            });
+            document.body.removeEventListener('click', arguments.callee); // Remove event listener after first click
+        });
+    </script>
+
+</body>
+</html>
